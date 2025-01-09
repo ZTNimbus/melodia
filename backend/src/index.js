@@ -10,6 +10,7 @@ import songRoutes from "./routes/song.route.js";
 import { connectDB } from "./lib/db.js";
 import fileUpload from "express-fileupload";
 import path from "path";
+import cors from "cors";
 
 dotenv.config();
 
@@ -18,6 +19,12 @@ dotenv.config();
 const app = express();
 const __dirname = path.resolve();
 
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(clerkMiddleware()); //add auth to req object (req.auth.userId)
 app.use(
