@@ -1,8 +1,24 @@
 import express from "express";
-import { getAdmin } from "../controllers/admin.controller.js";
+import { requireAdmin, protectRoute } from "../middleware/auth.middleware.js";
+import {
+  checkAdmin,
+  createAlbum,
+  createSong,
+  deleteAlbum,
+  deleteSong,
+} from "../controllers/admin.controller.js";
 
 const router = express.Router();
 
-router.get("/", getAdmin);
+router.use(protectRoute, requireAdmin);
 
+router.get("/check", checkAdmin);
+
+router.post("/songs", createSong);
+
+router.delete("/songs/:id", deleteSong);
+
+router.post("/albums", createAlbum);
+
+router.delete("/albums/:id", deleteAlbum);
 export default router;

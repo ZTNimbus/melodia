@@ -1,25 +1,17 @@
 import User from "../models/user.model.js";
 
-async function authCallback(req, res) {
-  const { id, firstName, lastName, imageUrl } = req.body;
-
+async function getAllUsers(req, res, next) {
   try {
-    const user = User.findOne({ clerkId: id });
+    const currentUserId = req.auth.userId;
 
-    if (!user) {
-      await User.create({
-        clerkId: id,
-        fullName: `${firstName} ${lastName}`,
-        imageUrl,
-      });
+    const users = await User.find({ clerkId: { $ne: currentUserId } });
 
-      res.status(200).json({ success: true });
-    }
+    res.status(200).json(users);
   } catch (error) {
-    console.log("Error in auth callback", error);
+    console.log("get all users error", error);
 
-    res.status(500).json({ message: "Internal Server Error", error });
+    next(error);
   }
 }
 
-export { authCallback };
+export { getAllUsers };
