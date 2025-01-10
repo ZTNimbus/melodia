@@ -19,7 +19,7 @@ async function getAlbum(req, res, next) {
 
     if (!album) return res.status(404).json({ message: "Album not found" });
 
-    res.send(200).json(album);
+    res.status(200).json(album);
   } catch (error) {
     console.log("get album error", error);
 
