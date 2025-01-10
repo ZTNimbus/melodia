@@ -9,11 +9,11 @@ import { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 function LeftSidebar() {
-  const { isLoading, songs, albums, fetchAlbums } = useMusicStore();
+  const { isLoadingAlbums, albums, fetchAlbums } = useMusicStore();
 
   useEffect(() => {
     fetchAlbums();
-  }, []);
+  }, [fetchAlbums]);
 
   return (
     <div className="h-full flex flex-col gap-2">
@@ -61,7 +61,7 @@ function LeftSidebar() {
 
         <ScrollArea className="h-[calc(100vh-300px)]">
           <div className="space-y-2">
-            {isLoading ? (
+            {isLoadingAlbums ? (
               <PlaylistSkeleton />
             ) : (
               albums.map((album) => {

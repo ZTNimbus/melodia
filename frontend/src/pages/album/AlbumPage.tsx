@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
+import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMusicStore } from "@/stores/useMusicStore";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { Clock, Play } from "lucide-react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
@@ -16,7 +16,7 @@ function formatDuration(seconds: number) {
 function AlbumPage() {
   const { id } = useParams();
 
-  const { fetchAlbum, selectedAlbum, isLoading } = useMusicStore();
+  const { fetchAlbum, selectedAlbum, isLoadingAlbum } = useMusicStore();
 
   useEffect(() => {
     if (!id) return;
@@ -24,11 +24,11 @@ function AlbumPage() {
     fetchAlbum(id);
   }, [id, fetchAlbum]);
 
-  if (isLoading) return null;
+  if (isLoadingAlbum) return null;
 
   return (
     <div className="h-full">
-      <ScrollArea className="h-full">
+      <ScrollArea className="h-full rounded-md">
         <div className="relative min-h-full">
           <div
             className="absolute inset-0 bg-gradient-to-b from-[#5038a0]/80 via-zinc-900/10 to-zinc-900 pointer-events-none"
