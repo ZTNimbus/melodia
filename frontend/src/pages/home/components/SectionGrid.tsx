@@ -1,6 +1,8 @@
 import SectionGridSkeleton from "@/components/skeletons/SectionGridSkeleton";
 import { Button } from "@/components/ui/button";
 import { Song } from "@/types";
+import PlayButton from "./PlayButton";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 type SectionGridProps = {
   title: string;
@@ -9,6 +11,13 @@ type SectionGridProps = {
 };
 
 function SectionGrid({ title, songs, isLoading }: SectionGridProps) {
+  const { currentSong, togglePlay, setCurrentSong } = usePlayerStore();
+
+  function handlePlay(song: Song) {
+    if (currentSong?._id === song._id) togglePlay();
+    else setCurrentSong(song);
+  }
+
   if (isLoading) <SectionGridSkeleton />;
 
   return (
@@ -28,6 +37,7 @@ function SectionGrid({ title, songs, isLoading }: SectionGridProps) {
           return (
             <div
               key={song._id}
+              onClick={() => handlePlay(song)}
               className="bg-zinc-800/40 p-4 rounded-md hover:bg-zinc-700/40 transition-all group cursor-pointer"
             >
               <div className="relative mb-4">
@@ -38,6 +48,8 @@ function SectionGrid({ title, songs, isLoading }: SectionGridProps) {
                     className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                   />
                 </div>
+
+                <PlayButton song={song} />
               </div>
               <h3 className="font-medium mb-2 truncate">{song.title}</h3>
               <p className="text-sm text-zinc-400 truncate">{song.artist}</p>

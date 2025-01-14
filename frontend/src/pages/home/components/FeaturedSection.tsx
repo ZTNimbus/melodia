@@ -1,8 +1,18 @@
 import FeaturedGridSkeleton from "@/components/skeletons/FeaturedGridSkeleton";
 import { useMusicStore } from "@/stores/useMusicStore";
+import PlayButton from "./PlayButton";
+import { Song } from "@/types";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 function FeaturedSection() {
   const { isLoadingPlaylists, featuredSongs, error } = useMusicStore();
+
+  const { currentSong, togglePlay, setCurrentSong } = usePlayerStore();
+
+  function handlePlay(song: Song) {
+    if (currentSong?._id === song._id) togglePlay();
+    else setCurrentSong(song);
+  }
 
   if (isLoadingPlaylists) return <FeaturedGridSkeleton />;
 
@@ -14,6 +24,7 @@ function FeaturedSection() {
         return (
           <div
             key={song._id}
+            onClick={() => handlePlay(song)}
             className="flex items-center bg-zinc-800/50 rounded-md overflow-hidden hover:bg-zinc-700/50 transition-colors group cursor-pointer relative"
           >
             <img
@@ -25,6 +36,8 @@ function FeaturedSection() {
               <p className="font-medium truncate">{song.title}</p>
               <p className="text-sm text-zinc-400 truncate">{song.artist}</p>
             </div>
+
+            <PlayButton song={song} />
           </div>
         );
       })}

@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import FeaturedSection from "./components/FeaturedSection";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import SectionGrid from "./components/SectionGrid";
+import { usePlayerStore } from "@/stores/usePlayerStore";
 
 function HomePage() {
   const {
@@ -13,13 +14,21 @@ function HomePage() {
     isLoadingPlaylists,
     madeForYouSongs,
     trendingSongs,
+    featuredSongs,
   } = useMusicStore();
+
+  const { initializeQueue } = usePlayerStore();
 
   useEffect(() => {
     fetchFeaturedSongs();
     fetchMadeForYouSongs();
     fetchTrendingSongs();
   }, [fetchFeaturedSongs, fetchMadeForYouSongs, fetchTrendingSongs]);
+
+  useEffect(() => {
+    if (madeForYouSongs.length && trendingSongs && featuredSongs.length)
+      initializeQueue([...madeForYouSongs, ...trendingSongs, ...featuredSongs]);
+  }, [initializeQueue, madeForYouSongs, trendingSongs, featuredSongs]);
 
   return (
     <main className="rounded-md overflow-hidden h-full bg-gradient-to-b from-zinc-800 to-zinc-900">
