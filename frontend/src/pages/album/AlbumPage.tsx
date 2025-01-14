@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useMusicStore } from "@/stores/useMusicStore";
-import { Clock, Play } from "lucide-react";
+import { usePlayerStore } from "@/stores/usePlayerStore";
+import { Clock, Pause, Play } from "lucide-react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -18,11 +19,30 @@ function AlbumPage() {
 
   const { fetchAlbum, selectedAlbum, isLoadingAlbum } = useMusicStore();
 
+  const { currentSong, isPlaying, playAlbum, togglePlay } = usePlayerStore();
+
   useEffect(() => {
     if (!id) return;
 
     fetchAlbum(id);
   }, [id, fetchAlbum]);
+
+  function handlePlaySong(index: number) {
+    if (!selectedAlbum) return;
+
+    playAlbum(selectedAlbum.songs, index);
+  }
+
+  function handlePlayAlbum() {
+    if (!selectedAlbum) return;
+
+    const isCurrentAlbumPlaying = selectedAlbum?.songs.some(
+      (s) => s._id === currentSong?._id
+    );
+
+    if (isCurrentAlbumPlaying) togglePlay();
+    else playAlbum(selectedAlbum.songs);
+  }
 
   if (isLoadingAlbum) return null;
 
@@ -60,10 +80,16 @@ function AlbumPage() {
 
             <div className="px-6 pb-4 flex items-center gap-6">
               <Button
+                onClick={handlePlayAlbum}
                 className="size-14 rounded-full bg-green-500 hover:bg-green-400 hover:scale-105 transition-all"
                 size={"icon"}
               >
-                <Play className="size-7 text-black" />
+                {isPlaying &&
+                selectedAlbum?.songs.some((s) => s._id === currentSong?._id) ? (
+                  <Pause className="size-7 text-black" />
+                ) : (
+                  <Play className="size-7 text-black" />
+                )}
               </Button>
             </div>
 
@@ -80,14 +106,26 @@ function AlbumPage() {
               <div className="px-6">
                 <div className="space-y-2 py-4">
                   {selectedAlbum?.songs.map((song, i) => {
+                    const isCurrentSong = currentSong?._id === song._id;
+
                     return (
                       <div
+                        onClick={() => handlePlaySong(i)}
                         key={song._id}
                         className="grid grid-cols-[30px_4fr_2fr_1fr] gap-4 px-4 py-2 text-sm text-zinc-400 hover:bg-white/5 rounded-md group cursor-pointer"
                       >
                         <div className="flex items-center justify-center">
-                          <span className="group-hover:hidden">{i + 1}</span>
-                          <Play className="size-4 hidden group-hover:block" />
+                          {isCurrentSong ? (
+                            <div className="size-4 text-emerald-500 animate-pulse">
+                              🎵
+                            </div>
+                          ) : (
+                            <span className="group-hover:hidden">{i + 1}</span>
+                          )}
+
+                          {!isCurrentSong && (
+                            <Play className="size-4 hidden group-hover:block" />
+                          )}
                         </div>
 
                         <div className="flex items-center gap-3">

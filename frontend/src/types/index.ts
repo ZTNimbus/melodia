@@ -4,6 +4,7 @@ interface Song {
   artist: string;
   album: string | null;
   imageUrl: string;
+  audioUrl: string;
   duration: number;
   createdAt: string;
   updatedAt: string;
