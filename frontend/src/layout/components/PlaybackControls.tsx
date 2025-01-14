@@ -8,6 +8,7 @@ import {
   Mic2,
   Pause,
   Play,
+  Repeat,
   Shuffle,
   SkipBack,
   SkipForward,
@@ -148,7 +149,7 @@ function PlaybackControls() {
               variant={"ghost"}
               className="hidden sm:inline-flex hover:text-white text-zinc-400"
             >
-              <SkipForward className="size-4" />
+              <Repeat className="size-4" />
             </Button>
           </div>
 
