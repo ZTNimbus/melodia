@@ -1,0 +1,22 @@
+{
+  "name": "melodia",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm i --prefix backend && npm i --prefix frontend && npm run build --prefix frontend",
+    "start": "npm start --prefix backend"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ZTNimbus/melodia.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ZTNimbus/melodia/issues"
+  },
+  "homepage": "https://github.com/ZTNimbus/melodia#readme",
+  "description": ""
+}

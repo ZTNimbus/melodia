@@ -23,7 +23,8 @@ interface ChatStore {
   setSelectedUser: (user: User | null) => void;
 }
 
-const baseUrl = "http://localhost:3000";
+const baseUrl =
+  import.meta.env.MODE === "development" ? "http://localhost:3000" : "/";
 
 const socket = io(baseUrl, { autoConnect: false, withCredentials: true });
 
