@@ -11,13 +11,17 @@ import { connectDB } from "./lib/db.js";
 import fileUpload from "express-fileupload";
 import path from "path";
 import cors from "cors";
+import { createServer } from "http";
+import { initSocket } from "./lib/socket.js";
 
 dotenv.config();
 
-//TODO: IMPLEMENT SOCKET.IO FOR REALTIME MESSAGING AND CURRENTLY PLAYING TRACKING
-
 const app = express();
 const __dirname = path.resolve();
+
+const httpServer = createServer(app);
+
+initSocket(httpServer);
 
 app.use(
   cors({
@@ -54,7 +58,7 @@ app.use((err, _, res) => {
 });
 
 const PORT = process.env.PORT;
-app.listen(PORT, () => {
+httpServer.listen(PORT, () => {
   connectDB();
   console.log("Server is listening on port:", PORT);
 });

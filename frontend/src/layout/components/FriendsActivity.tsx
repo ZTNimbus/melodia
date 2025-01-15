@@ -34,8 +34,7 @@ function LoginPrompt() {
 
 function FriendsActivity() {
   const { user } = useUser();
-  const { users, fetchUsers } = useChatStore();
-  const isPlaying = false;
+  const { users, fetchUsers, onlineUsers, userActivities } = useChatStore();
 
   useEffect(() => {
     if (!user) return;
@@ -59,6 +58,9 @@ function FriendsActivity() {
       <ScrollArea className="flex-1">
         <div className="p-4 space-y-4">
           {users.map((user) => {
+            const activity = userActivities.get(user.clerkId);
+            const isPlaying = activity && activity !== "Idle";
+
             return (
               <div
                 key={user._id}
@@ -74,7 +76,9 @@ function FriendsActivity() {
                     <div
                       className={twMerge(
                         "absolute bottom-0 right-0 size-3 rounded-full border-2 border-zinc-900",
-                        isPlaying ? "bg-emerald-500" : "bg-amber-500"
+                        onlineUsers.has(user.clerkId)
+                          ? "bg-emerald-500"
+                          : "bg-zinc-500"
                       )}
                       aria-hidden="true"
                     />
@@ -93,14 +97,16 @@ function FriendsActivity() {
                     {isPlaying ? (
                       <div className="mt-1">
                         <div className="my-1 text-sm text-white font-medium truncate">
-                          The Pot
+                          {activity.replace("Playing", "").split(" by ")[0]}
                         </div>
                         <div className="text-xs text-zinc-400 truncate">
-                          by Tool
+                          {activity.split(" by ")[1]}
                         </div>
                       </div>
                     ) : (
-                      <div className="mt-1 text-xs text-zinc-400">Idle</div>
+                      <div className="mt-1 text-xs text-zinc-400">
+                        {onlineUsers.has(user.clerkId) ? "Online" : "Offline"}
+                      </div>
                     )}
                   </div>
                 </div>

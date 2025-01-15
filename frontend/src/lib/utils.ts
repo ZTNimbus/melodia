@@ -20,4 +20,12 @@ function formatTime(seconds: number) {
   return `${minutes}:${remainingSeconds.toString().padStart(2, "0")}`;
 }
 
-export { cn, formatDuration, formatTime };
+function formatDate(date: string) {
+  return new Date(date).toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+}
+
+export { cn, formatDuration, formatTime, formatDate };
