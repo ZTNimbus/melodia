@@ -21,6 +21,8 @@ function ChatPage() {
     if (selectedUser) fetchMessages(selectedUser.clerkId);
   }, [selectedUser, fetchMessages]);
 
+  if (!user) return null;
+
   return (
     <main className="h-full rounded-lg bg-gradient-to-b from-zinc-800 to-zinc-900 overflow-hidden">
       <Topbar />
@@ -70,9 +72,9 @@ function ChatPage() {
                                 : selectedUser.imageUrl
                             }
                             alt={
-                              message.senderId === user?.id
-                                ? user.fullName
-                                : selectedUser.fullName
+                              message.senderId === user.id
+                                ? user.fullName || "user avatar"
+                                : selectedUser.fullName || "user avatar"
                             }
                           />
                         </Avatar>

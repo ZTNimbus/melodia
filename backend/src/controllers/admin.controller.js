@@ -40,7 +40,7 @@ async function createSong(req, res, next) {
       artist,
       imageUrl,
       audioUrl,
-      duration,
+      duration: parseInt(duration),
       albumId: albumId || null,
     });
 

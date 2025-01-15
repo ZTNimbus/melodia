@@ -31,7 +31,7 @@ function AddSongDialog() {
     title: "",
     artist: "",
     album: "",
-    duration: 0,
+    duration: "0",
   });
 
   const [files, setFiles] = useState<{
@@ -72,7 +72,7 @@ function AddSongDialog() {
         title: "",
         artist: "",
         album: "",
-        duration: 0,
+        duration: "0",
       });
 
       setFiles({ audio: null, image: null });
@@ -201,7 +201,7 @@ function AddSongDialog() {
               onChange={(e) =>
                 setNewSong({
                   ...newSong,
-                  duration: parseInt(e.target.value) || 0,
+                  duration: e.target.value || "0",
                 })
               }
             />
