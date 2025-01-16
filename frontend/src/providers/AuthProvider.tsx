@@ -44,7 +44,7 @@ function AuthProvider({ children }: PropsWithChildren) {
   if (isLoading)
     return (
       <div className="h-screen w-full flex items-center justify-center">
-        <Loader className="size-8 text-emerald-500 animate-spin" />
+        <Loader className="size-8 text-purple-500 animate-spin" />
       </div>
     );
 

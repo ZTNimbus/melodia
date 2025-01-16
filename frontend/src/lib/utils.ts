@@ -28,4 +28,13 @@ function formatDate(date: string) {
   });
 }
 
-export { cn, formatDuration, formatTime, formatDate };
+function formatGreeting(date: string) {
+  const time = +date.slice(0, 2);
+
+  if (time >= 5 && time <= 12) return "Good Morning";
+  if (time >= 12 && time <= 17) return "Good Afternoon";
+  if (time >= 17 && time <= 20) return "Good Evening";
+  if (time >= 20 && time <= 5) return "Good Night";
+}
+
+export { cn, formatDuration, formatTime, formatDate, formatGreeting };

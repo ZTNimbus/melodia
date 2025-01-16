@@ -35,7 +35,7 @@ function UsersList() {
                       <div
                         className={`absolute bottom-0 right-0 size-3 rounded-full ring-2 ring-zinc-900 ${
                           onlineUsers.has(user.clerkId)
-                            ? "bg-green-500"
+                            ? "bg-purple-500"
                             : "bg-zinc-500"
                         }`}
                       />

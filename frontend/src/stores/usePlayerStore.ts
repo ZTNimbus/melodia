@@ -88,7 +88,7 @@ const usePlayerStore = create<PlayerStore>((set, get) => {
           activity:
             willPlay && currentSong
               ? `Playing ${currentSong.title} by ${currentSong.artist}`
-              : "Idle",
+              : "Online",
         });
       }
     },
@@ -123,7 +123,7 @@ const usePlayerStore = create<PlayerStore>((set, get) => {
         if (socket.auth) {
           socket.emit("update_activity", {
             userId: socket.auth.userId,
-            activity: "Idle",
+            activity: "Online",
           });
         }
       }
@@ -159,7 +159,7 @@ const usePlayerStore = create<PlayerStore>((set, get) => {
         if (socket.auth) {
           socket.emit("update_activity", {
             userId: socket.auth.userId,
-            activity: "Idle",
+            activity: "Online",
           });
         }
       }

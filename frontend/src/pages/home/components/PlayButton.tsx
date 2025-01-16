@@ -18,7 +18,7 @@ function PlayButton({ song }: { song: Song }) {
 
   return (
     <Button
-      className={`absolute bottom-3 right-2 bg-green-500 hover:bg-green-400 hover:scale-105 transition-all opacity-0 translate-y-2 group-hover:translate-y-0 ${
+      className={`absolute bottom-3 right-2 bg-purple-500 hover:bg-purple-400 hover:scale-105 transition-all opacity-0 translate-y-2 group-hover:translate-y-0 ${
         isCurrentSong ? "opacity-100" : "opacity-0 group-hover:opacity-100"
       }`}
       onClick={handlePlay}

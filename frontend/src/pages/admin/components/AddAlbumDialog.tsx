@@ -61,7 +61,7 @@ function AddAlbumDialog() {
       setImageFile(null);
       SetIsAlbumDialogOpen(false);
 
-      toast.success("");
+      toast.success("Successfully Added Album");
     } catch (error: any) {
       toast.error(error.response.data.message);
     } finally {

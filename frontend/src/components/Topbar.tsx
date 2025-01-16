@@ -12,7 +12,7 @@ function Topbar() {
   return (
     <div className="flex items-center justify-between p-4 sticky top-0 bg-zinc-900/75 backdrop-blur-md z-10">
       <div className="flex gap-2 items-center">
-        <img src="/spotify.png" alt="melodia logo" className="size-8" />
+        <img src="/melodia.png" alt="melodia logo" className="size-8" />
         <span className="hidden md:inline-block">Melodia</span>
       </div>
 

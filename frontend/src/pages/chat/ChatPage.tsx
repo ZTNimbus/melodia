@@ -8,9 +8,16 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import MessageInput from "./components/MessageInput";
 import { formatDate } from "@/lib/utils";
+import { Loader } from "lucide-react";
 
 function ChatPage() {
-  const { messages, selectedUser, fetchUsers, fetchMessages } = useChatStore();
+  const {
+    messages,
+    selectedUser,
+    fetchUsers,
+    fetchMessages,
+    isLoadingMessages,
+  } = useChatStore();
   const { user } = useUser();
 
   useEffect(() => {
@@ -34,7 +41,7 @@ function ChatPage() {
           {!selectedUser && (
             <div className="flex flex-col items-center justify-center h-full space-y-6">
               <img
-                src="/spotify.png"
+                src="/melodia.png"
                 alt="Melodia"
                 className="size-16 animate-bounce [animation-duration:2s]"
               />
@@ -50,7 +57,13 @@ function ChatPage() {
             </div>
           )}
 
-          {selectedUser && (
+          {isLoadingMessages && (
+            <div className="h-full flex items-center justify-center">
+              <Loader className=" size-10 animate-spin text-purple-500" />
+            </div>
+          )}
+
+          {selectedUser && !isLoadingMessages && (
             <>
               <ChatHeader />
 
@@ -82,7 +95,7 @@ function ChatPage() {
                         <div
                           className={`rounded-lg p-3 max-w-[70%] ${
                             message.senderId === user?.id
-                              ? "bg-green-500"
+                              ? "bg-purple-500"
                               : "bg-zinc-800"
                           }`}
                         >

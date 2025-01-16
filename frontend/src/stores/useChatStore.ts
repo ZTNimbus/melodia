@@ -135,7 +135,7 @@ const useChatStore = create<ChatStore>((set, get) => {
     },
 
     fetchMessages: async (userId) => {
-      set({ isLoadingUsers: true });
+      set({ isLoadingMessages: true });
 
       try {
         const res = await axiosInstance.get(`/users/messages/${userId}`);
@@ -145,7 +145,7 @@ const useChatStore = create<ChatStore>((set, get) => {
         console.log("fetch messages error", error);
         set({ error: error.response.data.message });
       } finally {
-        set({ isLoadingUsers: false });
+        set({ isLoadingMessages: false });
       }
     },
 

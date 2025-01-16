@@ -88,7 +88,7 @@ function AddSongDialog() {
   return (
     <Dialog open={isSongDialogOpen} onOpenChange={setIsSongDialogOpen}>
       <DialogTrigger asChild>
-        <Button className="bg-emerald-500 hover:bg-emerald-600 text-black">
+        <Button className="bg-purple-500 hover:bg-purple-600 text-white">
           <Plus className="mr-2 size-4" />
           Add Song
         </Button>
@@ -132,7 +132,7 @@ function AddSongDialog() {
             <div className="text-center">
               {files.image ? (
                 <div className="space-y-2">
-                  <div className="text-sm text-emerald-500">Image Selected</div>
+                  <div className="text-sm text-purple-500">Image Selected</div>
                   <div className="text-xs text-zinc-400">
                     {files.image.name.slice(0, 20)}
                   </div>
@@ -243,7 +243,17 @@ function AddSongDialog() {
             Cancel
           </Button>
 
-          <Button onClick={handleSubmit} disabled={isLoading}>
+          <Button
+            onClick={handleSubmit}
+            disabled={
+              isLoading ||
+              !files.audio ||
+              !files.image ||
+              !newSong.title ||
+              !newSong.artist ||
+              newSong.duration === "0"
+            }
+          >
             {isLoading ? "Uploading" : "Add Song"}
           </Button>
         </DialogFooter>

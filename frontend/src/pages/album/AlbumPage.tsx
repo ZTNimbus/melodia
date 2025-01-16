@@ -74,7 +74,7 @@ function AlbumPage() {
             <div className="px-6 pb-4 flex items-center gap-6">
               <Button
                 onClick={handlePlayAlbum}
-                className="size-14 rounded-full bg-green-500 hover:bg-green-400 hover:scale-105 transition-all"
+                className="size-14 rounded-full bg-purple-500 hover:bg-purple-400 hover:scale-105 transition-all"
                 size={"icon"}
               >
                 {isPlaying &&
@@ -109,7 +109,7 @@ function AlbumPage() {
                       >
                         <div className="flex items-center justify-center">
                           {isCurrentSong ? (
-                            <div className="size-4 text-emerald-500 animate-pulse">
+                            <div className="size-4 text-purple-500 animate-pulse">
                               🎵
                             </div>
                           ) : (

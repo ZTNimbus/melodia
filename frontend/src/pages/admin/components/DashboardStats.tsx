@@ -10,8 +10,8 @@ function DashboardStats() {
       icon: ListMusic,
       label: "Total Songs",
       value: stats.totalSongsCount.toString(),
-      bgColor: "bg-emerald-500/10",
-      iconColor: "text-emerald-500",
+      bgColor: "bg-purple-500/10",
+      iconColor: "text-purple-500",
     },
     {
       icon: Library,

@@ -4,6 +4,7 @@ import { useChatStore } from "@/stores/useChatStore";
 import { SignedOut, useUser } from "@clerk/clerk-react";
 import { HeadphonesIcon, MusicIcon, Users } from "lucide-react";
 import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { twMerge } from "tailwind-merge";
 
 function LoginPrompt() {
@@ -11,12 +12,12 @@ function LoginPrompt() {
     <div className="h-full flex flex-col items-center justify-center p-6 text-center space-y-4">
       <div className="relative">
         <div
-          className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-sky-500 rounded-full blur-lg opacity-75 animate-pulse"
+          className="absolute -inset-1 bg-gradient-to-r from-purple-500 to-sky-500 rounded-full blur-lg opacity-75 animate-pulse"
           aria-hidden="true"
         />
 
         <div className="relative bg-zinc-900 rounded-full p-4">
-          <HeadphonesIcon className="size-8 text-emerald-400" />
+          <HeadphonesIcon className="size-8 text-purple-400" />
         </div>
       </div>
 
@@ -34,7 +35,9 @@ function LoginPrompt() {
 
 function FriendsActivity() {
   const { user } = useUser();
-  const { users, fetchUsers, onlineUsers, userActivities } = useChatStore();
+  const { users, fetchUsers, onlineUsers, userActivities, setSelectedUser } =
+    useChatStore();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!user) return;
@@ -59,12 +62,17 @@ function FriendsActivity() {
         <div className="p-4 space-y-4">
           {users.map((user) => {
             const activity = userActivities.get(user.clerkId);
-            const isPlaying = activity && activity !== "Idle";
+            const isPlaying = activity && activity !== "Online";
 
             return (
               <div
                 key={user._id}
                 className="cursor-pointer hover:bg-zinc-800/50 p-3 rounded-md transition-colors group"
+                onClick={() => {
+                  navigate("/chat");
+
+                  setSelectedUser(user);
+                }}
               >
                 <div className="flex items-start gap-3">
                   <div className="relative">
@@ -77,7 +85,7 @@ function FriendsActivity() {
                       className={twMerge(
                         "absolute bottom-0 right-0 size-3 rounded-full border-2 border-zinc-900",
                         onlineUsers.has(user.clerkId)
-                          ? "bg-emerald-500"
+                          ? "bg-purple-500"
                           : "bg-zinc-500"
                       )}
                       aria-hidden="true"
@@ -90,7 +98,7 @@ function FriendsActivity() {
                         {user.fullName}
                       </span>
                       {isPlaying && (
-                        <MusicIcon className="size-3.5 text-emerald-400 shrink-0" />
+                        <MusicIcon className="size-3.5 text-purple-400 shrink-0" />
                       )}
                     </div>
 

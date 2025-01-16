@@ -9,7 +9,7 @@ function NotFoundPage() {
     <div className="h-screen bg-neutral-900 flex items-center justify-center">
       <div className="text-center space-y-8 px-4">
         <div className="flex justify-center animate-bounce [animation-duration:2s]">
-          <Music2 className="size-24 text-emerald-500" />
+          <Music2 className="size-24 text-purple-500" />
         </div>
 
         <div className="space-y-4">
@@ -25,14 +25,14 @@ function NotFoundPage() {
           <Button
             onClick={() => navigate(-1)}
             variant={"outline"}
-            className="bg-neutral-800 hover:bg-emerald-600 text-white w-full sm:w-auto"
+            className="bg-neutral-800 hover:bg-purple-600 text-white w-full sm:w-auto"
           >
             Go Back
           </Button>
 
           <Button
             onClick={() => navigate("/")}
-            className="bg-emerald-500 hover:bg-emerald-600 text-white w-full sm:w-auto"
+            className="bg-purple-500 hover:bg-purple-600 text-white w-full sm:w-auto"
           >
             <Home className="mr-2 size-4" />
             Back to Home

@@ -15,7 +15,7 @@ function initSocket(server) {
   io.on("connection", (socket) => {
     socket.on("user_connected", (userId) => {
       userSockets.set(userId, socket.id);
-      userActvities.set(userId, "Idle");
+      userActvities.set(userId, "Online");
 
       io.emit("user_connected", userId);
 
